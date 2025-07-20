@@ -1,22 +1,21 @@
-
 let map = L.map('map').setView([17.385044, 78.486671], 15);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '© OpenStreetMap contributors'
 }).addTo(map);
 
-let route = [];
+let route = [
+  { "latitude": 17.385044, "longitude": 78.486671, "timestamp": "2024-07-20T10:00:00Z" },
+  { "latitude": 17.385045, "longitude": 78.486672, "timestamp": "2024-07-20T10:00:05Z" },
+  { "latitude": 17.385050, "longitude": 78.486680, "timestamp": "2024-07-20T10:00:10Z" },
+  { "latitude": 17.385060, "longitude": 78.486690, "timestamp": "2024-07-20T10:00:15Z" },
+  { "latitude": 17.385070, "longitude": 78.486700, "timestamp": "2024-07-20T10:00:20Z" }
+];
+
 let polyline;
 let marker;
 let index = 0;
 let intervalId;
 let isPlaying = false;
-
-async function loadRoute() {
-  const res = await fetch("dummy-route.json");
-  route = await res.json();
-  drawRoutePath();
-  setupMarker();
-}
 
 function drawRoutePath() {
   const latlngs = route.map(p => [p.latitude, p.longitude]);
@@ -61,4 +60,5 @@ document.getElementById("pauseBtn").addEventListener("click", () => {
   clearInterval(intervalId);
 });
 
-loadRoute();
+drawRoutePath();
+setupMarker();
